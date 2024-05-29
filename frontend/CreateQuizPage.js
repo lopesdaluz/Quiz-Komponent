@@ -64,19 +64,25 @@ export default function CreateQuizPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("quizData", quizData);
+
     if (quizData.name.trim() === "") {
       setPopUp("Fyll i namnfältet för quiz");
       return;
     }
 
-    // Check if question input is empty
-    const questionInputValue = quizData.questions.some(
-      (question) => question.question.trim() === ""
-    );
-    if (questionInputValue) {
-      setPopUp("skapa en fråga");
+    if (!quizData.questions || quizData.questions.length === 0) {
+      setPopUp("Lägg till minst en fråga");
       return;
     }
+
+    // Check if question input is empty
+    // const questionInputValue = quizData.questions.some(
+    //   (question) => question.question.trim() === ''
+    // )
+    // if (questionInputValue) {
+    //   setPopUp('skapa en fråga')
+    //   return
+    // }
     // Check if options array is empty or any option text is empty for any question
     //using the some method to check if my question passes any of the test  in my questions array. It checks if the option array is empty or if any option dont have text after deleting whitespace. If non of the element passes the test the function will render a popup state
     const noOptionsAdded = quizData.questions.some(
